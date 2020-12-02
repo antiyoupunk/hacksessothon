@@ -6,8 +6,8 @@
             width:400px;
             height:200px;
         }
-        button {
-          outline: none;
+        .button {
+          display:block;
           background: #0a0;
           color:#fff;
           border:1px solid #090;
@@ -16,12 +16,14 @@
           line-height:3em;
           margin:.5em 0;
           padding:0 1em;
+          cursor:pointer;
         }
       </style>
+      <script type="text/javascript" src="../assets/connect.js"></script>
+      <script type="text/javascript" src="../assets/app.js"></script>
     </head>
     <body>
-      <button id="SetDeploying">Set Status to Deploying</button>
+      <a id="SetDeploying" class="button">Set Status to Deploying</a>
     </body>
-    <script type="text/javascript" src="assets/connect.js"></script>
-    <script type="text/javascript" src="assets/app.js"></script>
+    
   </html>
