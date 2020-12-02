@@ -20,3 +20,21 @@ DBConnection.prototype.getStatus = function() {
 	
 	return returnObj;
 };
+
+DBConnection.prototype.setStatus = function(username, isDeploying) {
+	var data = {
+		user: username,
+		status: isDeploying ? 1 : 0
+	};
+	var jData = JSON.stringify(data);
+	
+	let request = new XMLHttpRequest();
+	request.open("PUT", url, false);
+	request.setRequestHeader('Content-Type', 'application/json');
+	request.send(jData);
+	
+	if (request.readyState === 4) 
+		return 0;
+	else
+		return 1;
+};
