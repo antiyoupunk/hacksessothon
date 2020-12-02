@@ -1,1 +1,11 @@
-{"placeholder"}
+{
+    "name": "accesso ShoWare Deployment Widget",
+    "version": "1.0",
+    "description": "Checks deployment status of various users to determine if it is all-clear to deploy.",
+    "permissions": ["storage","notifications","https://*/"],
+    "background": {
+      "scripts": ["assets/main.js"],
+      "persistent": false
+    },
+    "manifest_version": 2
+  }
