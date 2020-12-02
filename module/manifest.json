@@ -2,14 +2,14 @@
     "name": "accesso ShoWare Deployment Widget",
     "version": "1.1",
     "description": "Checks deployment status of various users to determine if it is all-clear to deploy.",
-    "permissions": ["storage","declarativeContent","notifications","https://*/"],
+    "permissions": ["storage","activeTab","declarativeContent","notifications","https://*/"],
     "background": {
       "scripts": ["assets/connect.js","assets/main.js"],
       "persistent": false
     },
-    "page_action": {
-        "default_popup": "view/popup.html",
-        "default_icon": {
+    "browser_action": {
+        "popup": "view/popup.html",
+        "default_icons": {
             "16": "icons/stop-16.png",
             "32": "icons/stop-32.png",
             "48": "icons/stop-48.png",
