@@ -5,12 +5,15 @@
         html{
             width:400px;
             height:200px;
+            padding:1em;
+        }
+        #setDeploying{
+            background: #0a0;
+            border:1px solid #090;
         }
         .button {
           display:block;
-          background: #0a0;
           color:#fff;
-          border:1px solid #090;
           border-radius:.1em;
           height:3em;
           line-height:3em;
@@ -23,7 +26,17 @@
       <script type="text/javascript" src="../assets/app.js"></script>
     </head>
     <body>
-      <a id="SetDeploying" class="button">Set Status to Deploying</a>
+        <header style="line-height:48px;font-weight:bold;">
+            <img style="float:left" src="../images/showare-logo.jpg"/>
+            <span style="float:right;font-size:1.5em;">Deployment Manager</span>
+            <div style="clear:both;"></div>
+        </header>
+        <div id="statusSection">
+            <h2 style="margin:.5em 0;">Trunk Status</h2>
+            <span style="margin:.5em 0;" id="trunkStatusMessage">Trunk is clear, and ready for deploy</span>
+            <a id="SetDeploying" class="button">Set Status to Deploying</a>
+            <a id="SetDeploying" class="button">Set Status to Deploying</a>
+        </div>
     </body>
     
   </html>
