@@ -11,8 +11,7 @@ DBConnection.prototype.getStatus = function() {
 	if (request.readyState === 4) {
 		statusObj = JSON.parse(request.response);
 		returnObj = {
-			user: statusObj['user'],
-			status: statusObj['status']
+			user: statusObj['user']
 		};
 	} else {
 		console.log("Error: " + request.status + " " + request.statusText);
@@ -21,10 +20,9 @@ DBConnection.prototype.getStatus = function() {
 	return returnObj;
 };
 
-DBConnection.prototype.setStatus = function(username, isDeploying) {
+DBConnection.prototype.setStatus = function(username) {
 	var data = {
-		user: username,
-		status: isDeploying ? 1 : 0
+		user: username
 	};
 	var jData = JSON.stringify(data);
 	
@@ -37,4 +35,8 @@ DBConnection.prototype.setStatus = function(username, isDeploying) {
 		return 0;
 	else
 		return 1;
+};
+
+DBConnection.prototype.clear = function() {
+	return this.setStatus("");
 };
