@@ -3,6 +3,7 @@
     "version": "1.1",
     "description": "Checks deployment status of various users to determine if it is all-clear to deploy.",
     "permissions": ["storage","activeTab","declarativeContent","notifications","https://*/"],
+    "options_page": "view/options.html",
     "background": {
       "scripts": ["assets/connect.js","assets/main.js"],
       "persistent": false
