@@ -4,6 +4,7 @@
     <style>
         body, *{
             font-size:16px;
+            box-sizing:border-box;
         }
         
         .button {
@@ -20,12 +21,16 @@
         input{
             border-radius:.2em;
             padding:.5em;
+            width:100%;
             border:1px solid #ccc;
         }
     </style>
 </head>
 <body>
-    <input type="text" id=nameText placeholder="Your Name" />
-    <a class="button" id="saveNameButton">Save</a>
+    <div style="width:480px;margin:1em auto;">
+        <h1>Deploy Tool Options</h1>
+        <input type="text" id=nameText placeholder="Your Name" />
+        <a class="button" id="saveNameButton">Save</a>
+    </div>
     <script src="../assets/options.js"></script>
 </body>
