@@ -1,5 +1,5 @@
 const con = new DBConnection;
-
+console.log(con);
 function getStatus(){
     console.log(con.getStatus());
 }
