@@ -1,6 +1,6 @@
 const con = new DBConnection;
 var appState = {currentName: "", currentStatus: "idle"};
-function getStatus(){
+function getStatus(closeAfter){
     var status = con.getStatus();
     if(status.user === ""){
         chrome.browserAction.setIcon({path:"../icons/clear-128.png"});
@@ -16,18 +16,36 @@ function getStatus(){
         }
     }
 }
-getStatus();
-window.setInterval(getStatus, 10000);
+
 function fetchName(){
     chrome.storage.sync.get({name: ''}, function(n) {
         updateName(n)
     });
 }
 function setDeploying(){
-    window.close();
     if(appState.currentName === ""){
+        //notify user they're messing up here
         return;
     }
+    con.setStatus(appState.currentName);
+    
+}
+function setFinished(){
+    if(appState.currentName === ""){
+        //notify user they're messing up here
+        return;
+    }
+    con.setStatus('');
+}
+function setPing(){
+    if(appState.currentName === ""){
+        //notify user they're messing up here
+        return;
+    }
+    con.setPings(appState.currentName);
+}
+function checkPings(){
+
 }
 function updateName(n){
     console.log(n)
@@ -43,12 +61,22 @@ function updateName(n){
         chrome.tabs.create({ url: "../view/options.html" });
     });
 }
-fetchName();
+
 document.addEventListener('DOMContentLoaded', function() {
+    fetchName();
+    getStatus();
     var deployButton = document.getElementById('setDeploying');
+    var finishedButton = document.getElementById('setFinished');
+    var pingButton = document.getElementById('sendPing');
     
     deployButton.addEventListener('click', function() {
         setDeploying()
+    });
+    finishedButton.addEventListener('click', function() {
+        setFinished()
+    });
+    pingButton.addEventListener('click', function() {
+        setPing()
     });
 
 });
