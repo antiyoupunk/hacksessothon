@@ -2,22 +2,17 @@ const url = "https://showare-q.herokuapp.com"
 
 var DBConnection = function() {};
 
-DBConnection.prototype.getStatus = function() {
+DBConnection.prototype.getStatus = function(callback) {
 	let request = new XMLHttpRequest();
 	var returnObj = {};
-	request.open("GET", `${url}/status`, false);
-	request.send();
-	
-	if (request.readyState === 4) {
-		statusObj = JSON.parse(request.response);
-		returnObj = {
-			user: statusObj['user']
-		};
-	} else {
-		console.log("Error: " + request.status + " " + request.statusText);
+	request.open("GET", `${url}/status`);
+	request.onload = function(){
+		if(typeof callback === 'function'){
+			returnObj = JSON.parse(this.response);
+			callback(returnObj);
+		}
 	}
-	
-	return returnObj;
+	request.send();
 };
 
 DBConnection.prototype.setStatus = function(username) {
@@ -25,36 +20,29 @@ DBConnection.prototype.setStatus = function(username) {
 		user: username
 	};
 	var jData = JSON.stringify(data);
-	
+	//no need for a response here
 	let request = new XMLHttpRequest();
-	request.open("PUT", `${url}/status`, false);
+	request.open("PUT", `${url}/status`);
 	request.setRequestHeader('Content-Type', 'application/json');
 	request.send(jData);
-	
-	if (request.readyState === 4) 
-		return 0;
-	else
-		return 1;
+	return 1;//we'll assume this always works so we don't need to sync this - getStatus can be called to verify
 };
 
 DBConnection.prototype.clearStatus = function() {
 	return this.setStatus("");
 };
 
-DBConnection.prototype.getPings = function() {
+DBConnection.prototype.getPings = function(callback) {
 	let request = new XMLHttpRequest();
 	var returnObj = [];
 	request.open("GET", `${url}/ping`, false);
-	request.send();
-	
-	if (request.readyState === 4) {
-		pingObj = JSON.parse(request.response);
-		returnObj = pingObj['users'];
-	} else {
-		console.log("Error: " + request.status + " " + request.statusText);
+	request.onload = function(){
+		if(typeof callback === 'function'){
+			returnObj = JSON.parse(this.response);
+			callback(returnObj);
+		}
 	}
-	
-	return returnObj;
+	request.send();
 };
 
 DBConnection.prototype.setPings = function(username) {
@@ -70,10 +58,7 @@ DBConnection.prototype.setPings = function(username) {
 	request.setRequestHeader('Content-Type', 'application/json');
 	request.send(jData);
 	
-	if (request.readyState === 4)
-		return 0;
-	else
-		return 1;
+	return 1;//same as above, just assume it worked
 };
 
 DBConnection.prototype.clearPings = function() {
@@ -87,9 +72,6 @@ DBConnection.prototype.clearPings = function() {
 	request.setRequestHeader('Content-Type', 'application/json');
 	request.send(jData);
 	
-	if (request.readyState === 4)
-		return 0;
-	else
-		return 1;
+	return 1;//repeating yourself is a sign of dementia
 };
 

@@ -1,7 +1,9 @@
 const con = new DBConnection;
 var appState = {currentName: "", currentStatus: "idle"};
-function getStatus(closeAfter){
-    var status = con.getStatus();
+function getStatus(){
+    con.getStatus(setStatus);
+}
+function setStatus(status){
     if(status.user === ""){
         chrome.browserAction.setIcon({path:"../icons/clear-128.png"});
         appState.currentStatus = "idle";
@@ -16,7 +18,6 @@ function getStatus(closeAfter){
         }
     }
 }
-
 function fetchName(){
     chrome.storage.sync.get({name: ''}, function(n) {
         updateName(n)
@@ -45,7 +46,10 @@ function setPing(){
     con.setPings(appState.currentName);
 }
 function checkPings(){
-
+    con.getPings(displayPings);
+}
+function displayPings(conPings){
+    console.log(conPings)
 }
 function updateName(n){
     console.log(n)

@@ -13,7 +13,9 @@ chrome.runtime.onInstalled.addListener(function() {
 
 function getStatus(){
     const con = new DBConnection;
-    var status = con.getStatus();
+    con.getStatus(setStatus);
+}
+function setStatus(status){
     if(status.user === ""){
         chrome.browserAction.setIcon({path:"../icons/clear-128.png"});
     }else{
