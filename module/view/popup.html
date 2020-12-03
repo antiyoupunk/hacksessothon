@@ -27,7 +27,6 @@
             border:1px solid #900;
         }
         .button {
-          display:block;
           font-weight:600;
           color:#fff;
           border-radius:.1em;
@@ -36,13 +35,24 @@
           margin:.5em 0;
           padding:0 1em;
           cursor:pointer;
+          text-align:center;
+          display:none;
+        }
+        .button .fa{
+            color:inherit;
+            margin-right:.5em;
         }
         #trunkStatusMessage{
             font-weight:600;
         }
+        .idle .button, .deploying .button, .blocked .button{display:block;}
+        .idle #setFinished.button, .idle #sendPing.button{display:none!important;}
+        .deploying #setDeploying.button, .deploying #sendPing.button{display:none!important;}
+        .blocked #setDeploying.button, .blocked #setFinished.button{display:none!important;}
       </style>
       <script type="text/javascript" src="../assets/connect.js"></script>
       <script type="text/javascript" src="../assets/app.js"></script>
+      <script type="text/javascript" src="../assets/fontawesome.js"></script>
     </head>
     <body>
         <header>
@@ -54,9 +64,9 @@
         <div id="statusSection">
             <h2 style="margin:.5em 0;font-size:1.5em;border-bottom:1px solid #eee">Trunk Status</h2>
             <span style="margin:.5em 0;" id="trunkStatusMessage">Trunk is clear, and ready for deploy</span>
-            <a id="setDeploying" class="button">Set Status to Deploying</a>
-            <a id="setFinished" class="button">Finished Deploying</a>
-            <a id="sendPing" class="button">Ping</a>
+            <a id="setDeploying" class="button"><i class="fa fa-arrow-circle-up"></i>Set Status to Deploying</a>
+            <a id="setFinished" class="button"><i class="fa fa-times-circle"></i>Finished Deploying</a>
+            <a id="sendPing" class="button"><i class="fa fa-comment"></i><span style="color:#fff;" id="pingMsg">Ping</span></a>
         </div>
     </body>
     

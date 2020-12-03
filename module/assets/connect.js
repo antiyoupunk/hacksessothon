@@ -15,7 +15,7 @@ DBConnection.prototype.getStatus = function(callback) {
 	request.send();
 };
 
-DBConnection.prototype.setStatus = function(username) {
+DBConnection.prototype.setStatus = function(username, callback) {
 	var data = {
 		user: username
 	};
@@ -24,12 +24,17 @@ DBConnection.prototype.setStatus = function(username) {
 	let request = new XMLHttpRequest();
 	request.open("PUT", `${url}/status`);
 	request.setRequestHeader('Content-Type', 'application/json');
+	request.onload = function(){
+		if(typeof callback === 'function'){
+			returnObj = JSON.parse(this.response);
+			callback(returnObj);
+		}
+	}
 	request.send(jData);
-	return 1;//we'll assume this always works so we don't need to sync this - getStatus can be called to verify
 };
 
 DBConnection.prototype.clearStatus = function() {
-	return this.setStatus("");
+	this.setStatus("");
 };
 
 DBConnection.prototype.getPings = function(callback) {

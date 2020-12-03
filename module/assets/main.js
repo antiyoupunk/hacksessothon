@@ -35,11 +35,16 @@ function checkPings(){
 function displayPings(conPings){
     if(!conPings || conPings.users.length === 0)
         return;
+    if(conPings.users.length === 1){
+        var msg = conPings.users[0] + " is waiting on you to finish deploying your changes."
+    }else{
+        var msg = "The following users are waiting for you to finish deployment:\n" + conPings.users.join('\n');
+    }
     var notifyOpt = {
         type: 'basic',
-        iconUrl: '../images/showare-logo.jpg',
+        iconUrl: '../icons/working-128.png',
         title: 'Speed it up!',
-        message: 'test'
+        message: msg
     }
     console.log(JSON.stringify(conPings));
     chrome.notifications.create("deployWidgetNotify-" + Date.now(), notifyOpt);

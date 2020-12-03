@@ -4,19 +4,25 @@ function getStatus(){
     con.getStatus(setStatus);
 }
 function setStatus(status){
+    var msgBox = document.getElementById('trunkStatusMessage');
     if(status.user === ""){
         chrome.browserAction.setIcon({path:"../icons/clear-128.png"});
+        msgBox.innerHTML = '<b style="color:#0a0">Trunk is clear, and ready for deploy</b>'
         appState.currentStatus = "idle";
     }else{
         if(status.user === appState.currentName){
             chrome.browserAction.setIcon({path:"../icons/working-128.png"});
             appState.currentStatus = "deploying";
+            msgBox.innerHTML = '<b style="color:#996200">You are deploying. Everyong is waiting...</b>'
             checkPings();
         }else{
             chrome.browserAction.setIcon({path:"../icons/stop-128.png"});
+            document.getElementById("pingMsg").innerHTML = 'Ping ' + status.user;
+            msgBox.innerHTML = '<b style="color:#a00">' + status.user + ' is deploying, wait your turn!</b>'
             appState.currentStatus = "blocked";
         }
     }
+    document.getElementById("statusSection").setAttribute("class", appState.currentStatus);
 }
 function fetchName(){
     chrome.storage.sync.get({name: ''}, function(n) {
@@ -28,7 +34,7 @@ function setDeploying(){
         //notify user they're messing up here
         return;
     }
-    con.setStatus(appState.currentName);
+    con.setStatus(appState.currentName, function(){window.close()});
     
 }
 function setFinished(){
@@ -36,7 +42,7 @@ function setFinished(){
         //notify user they're messing up here
         return;
     }
-    con.setStatus('');
+    con.setStatus('', function(){window.close()});
 }
 function setPing(){
     if(appState.currentName === ""){
@@ -52,7 +58,6 @@ function displayPings(conPings){
     con.clearPings();
 }
 function updateName(n){
-    console.log(n)
     if(n.name == '' || n.name == undefined || !n.name){
         appState.currentName = "";
         document.getElementById("username").innerHTML = '<a id="optionsLink">Set Name</a>';

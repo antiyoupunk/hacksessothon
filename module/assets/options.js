@@ -1,7 +1,7 @@
 function saveName(){
     var nameVal = document.getElementById("nameText").value;
     chrome.storage.sync.set({name: nameVal}, function() {
-        console.log(nameVal);
+        window.close();
         return;
     });
 }
