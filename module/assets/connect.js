@@ -46,10 +46,8 @@ DBConnection.prototype.getPings = function(callback) {
 };
 
 DBConnection.prototype.setPings = function(username) {
-	currentPings = this.getPings();
-	currentPings.push(username);
 	data = {
-		users: currentPings
+		user: username
 	};
 	jData = JSON.stringify(data);
 	
