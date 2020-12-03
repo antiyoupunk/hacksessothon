@@ -33,12 +33,16 @@ function checkPings(){
     con.getPings(displayPings);
 }
 function displayPings(conPings){
-    var NotificationOptions = {
+    if(!conPings || conPings.users.length === 0)
+        return;
+    var notifyOpt = {
         type: 'basic',
+        iconUrl: '../images/showare-logo.jpg',
         title: 'Speed it up!',
-        message: JSON.stringify(conPings)
+        message: 'test'
     }
-    chrome.notifications.create("deployWidgetNotify", NotificationOptions);
+    console.log(JSON.stringify(conPings));
+    chrome.notifications.create("deployWidgetNotify-" + Date.now(), notifyOpt);
     const con = new DBConnection;
     con.clearPings();
 }
