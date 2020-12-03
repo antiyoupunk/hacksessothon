@@ -62,15 +62,9 @@ DBConnection.prototype.setPings = function(username) {
 };
 
 DBConnection.prototype.clearPings = function() {
-	data = {
-		users: []
-	};
-	jData = JSON.stringify(data)
-	
 	let request = new XMLHttpRequest();
-	request.open("PUT", `${url}/ping`);
-	request.setRequestHeader('Content-Type', 'application/json');
-	request.send(jData);
+	request.open("DELETE", `${url}/ping`);
+	request.send();
 	
 	return 1;//repeating yourself is a sign of dementia
 };
