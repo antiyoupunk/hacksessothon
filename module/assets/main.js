@@ -28,5 +28,9 @@ function setStatus(status){
     }
 }
 function checkPings(){
-
+    con.getPings(displayPings);
+}
+function displayPings(conPings){
+    alert(conPings);
+    con.clearPings();
 }

@@ -35,7 +35,7 @@ DBConnection.prototype.clearStatus = function() {
 DBConnection.prototype.getPings = function(callback) {
 	let request = new XMLHttpRequest();
 	var returnObj = [];
-	request.open("GET", `${url}/ping`, false);
+	request.open("GET", `${url}/ping`);
 	request.onload = function(){
 		if(typeof callback === 'function'){
 			returnObj = JSON.parse(this.response);
@@ -54,7 +54,7 @@ DBConnection.prototype.setPings = function(username) {
 	jData = JSON.stringify(data);
 	
 	let request = new XMLHttpRequest();
-	request.open("PUT", `${url}/ping`, false);
+	request.open("PUT", `${url}/ping`);
 	request.setRequestHeader('Content-Type', 'application/json');
 	request.send(jData);
 	
@@ -68,7 +68,7 @@ DBConnection.prototype.clearPings = function() {
 	jData = JSON.stringify(data)
 	
 	let request = new XMLHttpRequest();
-	request.open("PUT", `${url}/ping`, false);
+	request.open("PUT", `${url}/ping`);
 	request.setRequestHeader('Content-Type', 'application/json');
 	request.send(jData);
 	

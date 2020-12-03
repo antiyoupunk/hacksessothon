@@ -49,7 +49,8 @@ function checkPings(){
     con.getPings(displayPings);
 }
 function displayPings(conPings){
-    console.log(conPings)
+    alert(conPings);
+    con.clearPings();
 }
 function updateName(n){
     console.log(n)
