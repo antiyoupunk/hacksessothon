@@ -14,7 +14,6 @@ function setStatus(status){
             chrome.browserAction.setIcon({path:"../icons/working-128.png"});
             appState.currentStatus = "deploying";
             msgBox.innerHTML = '<b style="color:#996200">You are deploying. Everyong is waiting...</b>'
-            checkPings();
         }else{
             chrome.browserAction.setIcon({path:"../icons/stop-128.png"});
             document.getElementById("pingMsg").innerHTML = 'Ping ' + status.user;
@@ -50,12 +49,6 @@ function setPing(){
         return;
     }
     con.setPings(appState.currentName);
-}
-function checkPings(){
-    con.getPings(displayPings);
-}
-function displayPings(conPings){
-    con.clearPings();
 }
 function updateName(n){
     if(n.name == '' || n.name == undefined || !n.name){
