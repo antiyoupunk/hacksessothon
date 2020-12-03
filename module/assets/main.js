@@ -13,24 +13,39 @@ chrome.runtime.onInstalled.addListener(function() {
 
 function getStatus(){
     const con = new DBConnection;
-    con.getStatus(setStatus);
+    con.getStatus(fetchName);
 }
-function setStatus(status){
+function setStatus(status, currentName){
     if(status.user === ""){
         chrome.browserAction.setIcon({path:"../icons/clear-128.png"});
     }else{
-        if(status.user === "Martin Speer"){
+        if(status.user === currentName){
             chrome.browserAction.setIcon({path:"../icons/working-128.png"});
             checkPings();
         }else{
             chrome.browserAction.setIcon({path:"../icons/stop-128.png"});
         }
     }
+    currentName = fetchName();
 }
 function checkPings(){
+    const con = new DBConnection;
     con.getPings(displayPings);
 }
 function displayPings(conPings){
-    alert(conPings);
+    var NotificationOptions = {
+        type: 'basic',
+        title: 'Speed it up!',
+        message: JSON.stringify(conPings)
+    }
+    chrome.notifications.create("deployWidgetNotify", NotificationOptions);
+    const con = new DBConnection;
     con.clearPings();
+}
+function fetchName(status){
+    if(status){
+        chrome.storage.sync.get({name: ''}, function(n) {
+            setStatus(status, n.name)
+        });
+    }
 }
